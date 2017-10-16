@@ -1,0 +1,17 @@
+{
+  "name": "fcpxml-to-srt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "text-prompt": "^0.1.2",
+    "untildify": "^3.0.2",
+    "xml-parser": "^1.2.1",
+    "xml2js": "^0.4.19"
+  }
+}

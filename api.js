@@ -5,14 +5,18 @@ let frameDuration;
 let list = [];
 
 function time(s) {
+	// 1/2s => 0.5
 	return eval(s.replace("s", ""));
 }
 function pad(s, count) {
+	// Pad with zeroes
 	return "0".repeat(count - s.toString().length) + s;
 }
 function timecode(s) {
+	// Bind to frames
 	s = Math.round(s / frameDuration) * frameDuration;
 
+	// Separate
 	let hours = Math.floor(s / 60 / 60);
 	let minutes = Math.floor(s / 60) % 60;
 	let seconds = Math.floor(s) % 60;
@@ -23,12 +27,14 @@ function timecode(s) {
 
 function walk(name, root, parent) {
 	if(name == "marker" && root.$) {
+		// Add <marker>s with zero duration (it is not given)
 		list.push({
 			start: time(root.$.start) - time(parent.$.start),
-			end: 0,
+			duration: 0,
 			value: root.$.value
 		});
 	} else if(name == "chapter-marker" && root.$) {
+		// Get <chapter-marker> duration from posterOffset
 		list.push({
 			start: time(root.$.start) - time(parent.$.start),
 			duration: time(root.$.posterOffset),
@@ -36,6 +42,7 @@ function walk(name, root, parent) {
 		});
 	}
 
+	// Walk recursively
 	if(root instanceof Array) {
 		root.forEach(entry => {
 			walk(name, entry, parent);
@@ -59,6 +66,7 @@ module.exports = (fcpXmlFile, srtFile) => {
 				return;
 			}
 
+			// Parse FCPXML file
 			xml2js.parseString(data, (e, xml) => {
 				if(e) {
 					reject(e);
@@ -70,6 +78,7 @@ module.exports = (fcpXmlFile, srtFile) => {
 
 				walk("", xml);
 
+				// Sort and set end points
 				list.sort((a, b) => {
 					return a.start - b.start;
 				});
@@ -89,6 +98,7 @@ module.exports = (fcpXmlFile, srtFile) => {
 					list[list.length - 1].end = duration + 3600;
 				}
 
+				// Output
 				let res = "";
 				list.forEach((subtitle, i) => {
 					res += (i + 1) + "\n";

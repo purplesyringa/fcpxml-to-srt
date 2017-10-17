@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf fcpxml-to-srt-*",
+    "build": "electron-packager . fcpxml-to-srt",
+    "start": "electron ."
   },
   "author": "",
   "license": "ISC",
@@ -14,5 +17,8 @@
     "untildify": "^3.0.2",
     "xml-parser": "^1.2.1",
     "xml2js": "^0.4.19"
+  },
+  "devDependencies": {
+    "electron-packager": "^9.1.0"
   }
 }

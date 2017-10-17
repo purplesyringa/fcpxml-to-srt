@@ -1,7 +1,7 @@
 let electron = require("electron");
 let fs = require("fs");
 let path = require("path");
-let api = require("../api.js");
+let api = require("./api.js");
 
 let dragndrop = document.getElementById("dragndrop");
 

@@ -1,20 +1,21 @@
-let api = require("./api.js");
-let prompt = require("text-prompt");
-let fs = require("fs");
-let untildify = require("untildify");
+let url = require("url");
+let path = require("path");
+let electron = require("electron");
 
-prompt("FCPXML file?")
-	.on("submit", fcpXmlFile => {
-		prompt("SRT file?")
-			.on("submit", srtFile => {
-				api(untildify(fcpXmlFile), untildify(srtFile))
-					.then(() => {
-						process.stdout.write("File saved\n");
-						process.exit(0);
-					}, e => {
-						process.stderr.write("Error\n");
-						process.stderr.write(e.toString() + "\n");
-						process.exit(1);
-					});
-			});
+electron.app.on("ready", () => {
+	let win = new electron.BrowserWindow({
+		width: 800,
+		height: 600
 	});
+	win.setMenu(null);
+
+	win.loadURL(url.format({
+		pathname: path.join(__dirname, "index.html"),
+		protocol: "file:",
+		slashes: true
+	}));
+
+	win.on("closed", () => {
+		electron.app.quit();
+	});
+});

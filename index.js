@@ -93,7 +93,7 @@ prompt("FCPXML file?")
 				}
 
 				if(list[list.length - 1].duration) {
-					list[list.length - 1].end = min(list[list.length - 1].start + list[list.length - 1].duration, duration + 3600);
+					list[list.length - 1].end = Math.min(list[list.length - 1].start + list[list.length - 1].duration, duration + 3600);
 				} else {
 					list[list.length - 1].end = duration + 3600;
 				}

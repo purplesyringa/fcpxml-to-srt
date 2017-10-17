@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "rm -rf fcpxml-to-srt-*",
-    "build": "electron-packager . fcpxml-to-srt",
+    "clean": "rm -rf build",
+    "build": "mkdir build && cd build && electron-packager .. fcpxml-to-srt",
+    "build-all": "mkdir build && cd build && electron-packager .. fcpxml-to-srt --all",
     "start": "electron ."
   },
   "author": "",

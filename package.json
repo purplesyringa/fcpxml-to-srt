@@ -6,8 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf build",
-    "build": "mkdir build && cd build && electron-packager .. fcpxml-to-srt",
-    "build-all": "mkdir build && cd build && electron-packager .. fcpxml-to-srt --all",
+    "build": "echo \"Run 'npm run build:win32' or 'npm run build:linux'\"",
+    "build:win32": "mkdir build && cd build && electron-packager .. fcpxml-to-srt --icon=../icon.ico",
+    "build:linux": "mkdir build && cd build && electron-packager .. fcpxml-to-srt --icon=../icon.png",
     "start": "electron ."
   },
   "author": "",

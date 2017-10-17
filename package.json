@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "electron": "^1.7.9",
     "text-prompt": "^0.1.2",
     "untildify": "^3.0.2",
     "xml-parser": "^1.2.1",

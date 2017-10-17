@@ -1,0 +1,36 @@
+html, body {
+	padding: 0;
+	margin: 0;
+	height: 100%;
+}
+
+.dragndrop {
+	position: absolute;
+	left: 40px;
+	top: 40px;
+
+	display: block;
+	width: calc(100% - 80px);
+	height: calc(100% - 80px);
+	box-sizing: border-box;
+	cursor: pointer;
+
+	border: 5px dashed #888;
+	border-radius: 10px;
+}
+.dragndrop:hover {
+	background-color: #EEE;
+}
+
+.dragndrop-text {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+
+	display: block;
+	width: 100%;
+
+	font-family: Arial, sans-serif;
+	font-size: 40px;
+	text-align: center;
+}

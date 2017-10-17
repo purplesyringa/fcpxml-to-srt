@@ -1,5 +1,3 @@
-// ~/Movies/scene46-Vectrex.fcpxml
-
 let api = require("./api.js");
 let prompt = require("text-prompt");
 let fs = require("fs");

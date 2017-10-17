@@ -45,12 +45,12 @@ function walk(name, root, parent) {
 			walk(name, entry, parent);
 		});
 	} else if(typeof root == "object") {
-		Object.entries(root).forEach(entry => {
-			if(entry[0] == "$") {
+		Object.keys(root).forEach(name => {
+			if(name == "$") {
 				return;
 			}
 
-			walk(entry[0], entry[1], root);
+			walk(name, root[name], root);
 		});
 	}
 }

@@ -1,5 +1,6 @@
 let electron = require("electron");
 let fs = require("fs");
+let path = require("path");
 let api = require("../api.js");
 
 let dragndrop = document.getElementById("dragndrop");
@@ -86,5 +87,50 @@ dragndrop.ondrop = e => {
 				cancelId: 0
 			});
 		}
+	});
+};
+dragndrop.onclick = () => {
+	electron.remote.dialog.showOpenDialog({
+		title: "FCPXML to SRT",
+		defaultPath: path.dirname(process.argv[1]),
+		filters: [
+			{
+				name: "FCPXML",
+				extensions: ["fcpxml", "xml"]
+			},
+			{
+				name: "All Files",
+				extensions: ["*"]
+			}
+		],
+		properties: ["openFile", "multiSelections"]
+	}, paths => {
+		if(!paths) {
+			return;
+		}
+
+		let list = [];
+
+		Promise.all(
+			paths.map(path => {
+				return handle(path)
+					.then(res => {
+						if(res) {
+							list.push(path);
+						}
+					});
+			})
+		).then(() => {
+			if(list.length) {
+				electron.remote.dialog.showMessageBox({
+					type: "info",
+					buttons: ["OK"],
+					defaultId: 0,
+					title: "FCPXML to SRT",
+					message: list.length + " " + (list.length == 1 ? "file was" : "files were") + " created.",
+					cancelId: 0
+				});
+			}
+		});
 	});
 };

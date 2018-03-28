@@ -25,6 +25,22 @@ function timecode(s) {
 	return pad(hours, 2) + ":" + pad(minutes, 2) + ":" + pad(seconds, 2) + "," + pad(ms, 3);
 }
 
+function getText(root) {
+	if(root instanceof Array) {
+		return root.map(getText).join("");
+	} else if(typeof root == "object") {
+		return Object.keys(root).map(name => {
+			if(name == "$") {
+				return;
+			}
+
+			return getText(root[name]);
+		}).join("");
+	} else {
+		return root.toString();
+	}
+}
+
 function walk(name, root, parent) {
 	if(name == "marker" && root.$) {
 		// Add <marker>s with zero duration (it is not given)
@@ -39,6 +55,13 @@ function walk(name, root, parent) {
 			start: time(root.$.start) - time(parent.$.start),
 			duration: time(root.$.posterOffset),
 			value: root.$.value
+		});
+	} else if(name == "title" && root.$) {
+		// <title>
+		list.push({
+			start: time(root.$.offset) - time(parent.$.start || "0s") + time(parent.$.offset || "0s"),
+			duration: time(root.$.duration),
+			value: getText(root)
 		});
 	}
 

@@ -101,6 +101,7 @@ module.exports = (fcpXmlFile, srtFile) => {
 				frameDuration = time(xml.fcpxml.resources[0].format[0].$.frameDuration);
 				duration = time(xml.fcpxml.library[0].event[0].project[0].sequence[0].$.duration);
 
+				list = [];
 				walk("", xml);
 
 				// Sort and set end points

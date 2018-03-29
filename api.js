@@ -12,9 +12,11 @@ function pad(s, count) {
 	// Pad with zeroes
 	return "0".repeat(count - s.toString().length) + s;
 }
-function timecode(s) {
+function timecode(s, away=0) {
 	// Bind to frames
 	s = Math.round(s / frameDuration) * frameDuration;
+
+	s -= away / 1000;
 
 	// Separate
 	let hours = Math.floor(s / 60 / 60);
@@ -125,7 +127,7 @@ module.exports = (fcpXmlFile, srtFile) => {
 				let res = "";
 				list.forEach((subtitle, i) => {
 					res += (i + 1) + "\n";
-					res += timecode(subtitle.start) + " --> " + timecode(subtitle.end) + "\n";
+					res += timecode(subtitle.start) + " --> " + timecode(subtitle.end, 1) + "\n";
 					res += subtitle.value + "\n";
 					res += "\n";
 				});
